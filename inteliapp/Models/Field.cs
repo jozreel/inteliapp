@@ -20,7 +20,7 @@ namespace inteliapp.Models
         public bool Required { get; set; }
         public int FieldID { get; set; }
         public string FieldLabel { get; set; }
-        public Equipment Equipment { get; set; }
+        public virtual Equipment Equipment { get; set; }
 
 
     }

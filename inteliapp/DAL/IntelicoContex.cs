@@ -10,7 +10,7 @@ namespace inteliapp.DAL
     {
         public IntelicoContex():base("inteliappconn")
         {
-
+            base.Configuration.ProxyCreationEnabled = false;
         }
         public DbSet<Models.Equipment> Equipment { get; set;}
         public DbSet<Models.Field> Fields { get; set; }

@@ -13,44 +13,44 @@ using inteliapp.Models;
 
 namespace inteliapp.Controllers
 {
-    public class EquipmentsController : ApiController
+    public class UsersController : ApiController
     {
         private IntelicoContex db = new IntelicoContex();
 
-        // GET: api/Equipments
-        public IQueryable<Equipment> GetEquipment()
-        {  // List<Equipment>El = db.Equipment.Include(e => e.Fields).ToList<Equipment>();
-            return db.Equipment.Include(e=>e.Fields);
+        // GET: api/Users
+        public IQueryable<User> GetUsers()
+        {
+            return db.Users;
         }
 
-        // GET: api/Equipments/5
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult GetEquipment(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
         {
-            Equipment equipment = db.Equipment.Find(id);
-            if (equipment == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(equipment);
+            return Ok(user);
         }
 
-        // PUT: api/Equipments/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEquipment(int id, Equipment equipment)
+        public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != equipment.EquipmentID)
+            if (id != user.userID)
             {
                 return BadRequest();
             }
 
-            db.Entry(equipment).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace inteliapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace inteliapp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Equipments
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult PostEquipment(Equipment equipment)
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Equipment.Add(equipment);
+            db.Users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = equipment.EquipmentID }, equipment);
+            return CreatedAtRoute("DefaultApi", new { id = user.userID }, user);
         }
 
-        // DELETE: api/Equipments/5
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult DeleteEquipment(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult DeleteUser(int id)
         {
-            Equipment equipment = db.Equipment.Find(id);
-            if (equipment == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            db.Equipment.Remove(equipment);
+            db.Users.Remove(user);
             db.SaveChanges();
 
-            return Ok(equipment);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace inteliapp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool EquipmentExists(int id)
+        private bool UserExists(int id)
         {
-            return db.Equipment.Count(e => e.EquipmentID == id) > 0;
+            return db.Users.Count(e => e.userID == id) > 0;
         }
     }
 }

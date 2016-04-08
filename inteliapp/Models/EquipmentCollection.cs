@@ -15,6 +15,6 @@ namespace inteliapp.Models
         public int fieldID { get; set; }
         public string Value { get; set; }
 
-        public Field Field { get; set; }
+        public virtual Field Field { get; set; }
     }
 }

@@ -10,11 +10,11 @@ namespace inteliapp.Models
 
         public Equipment()
         {
-           
+            this.Fields = new HashSet<Field>();
         }
         public string Name { get; set; }
         public int EquipmentID { get; set; }
         public string EquipmentDescription { get; set; }
-        public ICollection<Field> Fields { get; set; }
+        public virtual ICollection<Field> Fields { get; set; }
     }
 }

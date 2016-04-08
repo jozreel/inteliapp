@@ -13,44 +13,44 @@ using inteliapp.Models;
 
 namespace inteliapp.Controllers
 {
-    public class EquipmentsController : ApiController
+    public class FieldsController : ApiController
     {
         private IntelicoContex db = new IntelicoContex();
 
-        // GET: api/Equipments
-        public IQueryable<Equipment> GetEquipment()
-        {  // List<Equipment>El = db.Equipment.Include(e => e.Fields).ToList<Equipment>();
-            return db.Equipment.Include(e=>e.Fields);
+        // GET: api/Fields
+        public IQueryable<Field> GetFields()
+        {
+            return db.Fields;
         }
 
-        // GET: api/Equipments/5
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult GetEquipment(int id)
+        // GET: api/Fields/5
+        [ResponseType(typeof(Field))]
+        public IHttpActionResult GetField(int id)
         {
-            Equipment equipment = db.Equipment.Find(id);
-            if (equipment == null)
+            Field field = db.Fields.Find(id);
+            if (field == null)
             {
                 return NotFound();
             }
 
-            return Ok(equipment);
+            return Ok(field);
         }
 
-        // PUT: api/Equipments/5
+        // PUT: api/Fields/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEquipment(int id, Equipment equipment)
+        public IHttpActionResult PutField(int id, Field field)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != equipment.EquipmentID)
+            if (id != field.FieldID)
             {
                 return BadRequest();
             }
 
-            db.Entry(equipment).State = EntityState.Modified;
+            db.Entry(field).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace inteliapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentExists(id))
+                if (!FieldExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace inteliapp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Equipments
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult PostEquipment(Equipment equipment)
+        // POST: api/Fields
+        [ResponseType(typeof(Field))]
+        public IHttpActionResult PostField(Field field)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Equipment.Add(equipment);
+            db.Fields.Add(field);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = equipment.EquipmentID }, equipment);
+            return CreatedAtRoute("DefaultApi", new { id = field.FieldID }, field);
         }
 
-        // DELETE: api/Equipments/5
-        [ResponseType(typeof(Equipment))]
-        public IHttpActionResult DeleteEquipment(int id)
+        // DELETE: api/Fields/5
+        [ResponseType(typeof(Field))]
+        public IHttpActionResult DeleteField(int id)
         {
-            Equipment equipment = db.Equipment.Find(id);
-            if (equipment == null)
+            Field field = db.Fields.Find(id);
+            if (field == null)
             {
                 return NotFound();
             }
 
-            db.Equipment.Remove(equipment);
+            db.Fields.Remove(field);
             db.SaveChanges();
 
-            return Ok(equipment);
+            return Ok(field);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace inteliapp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool EquipmentExists(int id)
+        private bool FieldExists(int id)
         {
-            return db.Equipment.Count(e => e.EquipmentID == id) > 0;
+            return db.Fields.Count(e => e.FieldID == id) > 0;
         }
     }
 }
